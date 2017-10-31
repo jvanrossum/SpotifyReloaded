@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   
   ngOnInit() {
     this.route.fragment.subscribe((fragment: string) => {
-      if (fragment.startsWith("access_token=")) {
+      if (fragment != null && fragment.startsWith("access_token=")) {
         let fragmentJson = this.getJsonFromFragmentParams(fragment);
         this.accessToken = fragmentJson.access_token;
         this.getUserData();
@@ -38,8 +38,10 @@ export class AppComponent implements OnInit {
       .map((resp) => resp.json())
       .subscribe((me: any) => {
         this.name = me.display_name;
-        this.imgSrc = me.images[0].url;
-      });
+        if(me.images[0] != null) {
+          this.imgSrc = me.images[0].url;
+        }
+      }, () => delete this.accessToken);
   }
 
   private getJsonFromFragmentParams(fragment: string): any {
