@@ -2,4 +2,11 @@
 <ng-container *ngIf="isConnectedToSpotify()">
   <div><img *ngIf="imgSrc" [src]="imgSrc"/></div>
   {{ name }}
+  <hr />
+  <input #searchBox (keyup)="triggerSearch(searchBox.value)" />
+  <div>
+    <div *ngFor="let artist of artists | async">
+      {{ artist.name }}
+    </div>
+  </div>
 </ng-container>
