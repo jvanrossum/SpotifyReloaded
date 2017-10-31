@@ -1,1 +1,5 @@
-<button (click)="connectSpotify()">Verbind met Spotify</button>
+<button *ngIf="!isConnectedToSpotify()" (click)="connectSpotify()">Verbind met Spotify</button>
+<ng-container *ngIf="isConnectedToSpotify()">
+  <div><img [src]="imgSrc"/></div>
+  {{ name }}
+</ng-container>
